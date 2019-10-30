@@ -1,0 +1,49 @@
+<%- include ../layouts/header.ejs %>	
+		
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<form action="/rides/edit/<%= rideID %>" method="post" name="form1">
+	<table width="25%" border="0">
+		<tr> 
+			<td>Start Latitude</td>
+			<td><input type="text" name="startLatitude" value="<%= startLatitude %>" /></td>
+		</tr>
+		<tr> 
+			<td>Start Longitude</td>
+			<td><input type="text" name="startLongitude" value="<%= startLongitude %>" /></td>
+		</tr>
+		<tr> 
+			<td>End Latitude</td>
+			<td><input type="text" name="endLatitude" value="<%= endLatitude %>" /></td>
+		</tr>
+		<tr> 
+			<td>End Longitude</td>
+			<td><input type="text" name="endLongitude" value="<%= endLongitude %>" /></td>
+		</tr>
+		<tr> 
+			<td>Rider Name</td>
+			<td><input type="text" name="riderName" value="<%= riderName %>" /></td>
+		</tr>
+		<tr> 
+			<td>Driver Name</td>
+			<td><input type="text" name="driverName" value="<%= driverName %>" /></td>
+		</tr>
+		<tr> 
+			<td>Driver Vehicle</td>
+			<td><input type="text" name="driverVehicle" value="<%= driverVehicle %>" /></td>
+		</tr>
+		<tr> 
+			<td></td>
+			<td><input type="submit" name="Submit" value="Edit" /></td>
+		</tr>
+	</table>
+	<input type="hidden" name="_method" value="PUT" />
+</form>
+
+<%- include ../layouts/footer.ejs %>

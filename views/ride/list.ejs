@@ -1,0 +1,53 @@
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>	
+
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>Start Latitude</th>
+		<th>Star tLongitude</th>
+		<th>End Latitude</th>
+		<th>End Longitude</th>
+		<th>Rider Name</th>
+		<th>Driver Name</th>
+		<th>Driver Vehicle</th>
+		<th>Action</th>
+	</tr>
+	
+	<% if (data.error_code == 'RIDES_NOT_FOUND_ERROR' || data.length==0) { %>
+		<tr>
+			<td colspan="8" align="center"><%= data.message %></td>
+		</tr>
+	<% }else{ %>
+	<% data.forEach(function(rides){ %>
+		<tr>
+			<td><%= rides.startLat %></td>
+			<td><%= rides.startLong %></td>
+			<td><%= rides.endLat %></td>
+			<td><%= rides.endLong %></td>
+			<td><%= rides.riderName %></td>
+			<td><%= rides.driverName %></td>
+			<td><%= rides.driverVehicle %></td>
+			<td>
+				<div style="float:left">
+					<a href='/rides/edit/<%= rides.rideID %>'>Edit</a> &nbsp;							
+					<form method="post" action="/rides/delete/<%= rides.rideID %>" style="float:right">
+						<input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+						<input type="hidden" name="_method" value="DELETE" />
+					</form>
+				</div>
+			</td>
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>
+
+<%- include ../layouts/footer.ejs %>
